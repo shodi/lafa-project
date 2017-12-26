@@ -1,6 +1,6 @@
 buildscript {
-	ext.kotlin_version = '1.1.4-3'
-	ext.main_class_name = 'test.InitTestKt'
+	ext.kotlin_version = '1.2.10'
+	ext.main_class_name = 'com.example.demo.app.LafaApp'
 	repositories {
 		mavenCentral()
 	}
@@ -14,14 +14,24 @@ apply plugin: 'application'
 
 mainClassName = "$main_class_name"
 
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-	compile "no.tornado:tornadofx:1.5.+"
-	compile "org.controlsfx:controlsfx:8.40.12"
+	// https://mvnrepository.com/artifact/org.codehaus.castor/castor-xml
+	compile group: 'org.codehaus.castor', name: 'castor-xml', version: '1.4.1'
+
+	compile 'no.tornado:tornadofx:1.7.14'
+    compile 'org.controlsfx:controlsfx:8.40.12'
+	compile group: 'org.apache.xmlgraphics', name: 'fop', version: '0.94'
+    //RxKotlin and RxKotlinFX dependencies
+    compile 'com.github.thomasnield:rxkotlinfx:0.2.0'
+    compile 'io.reactivex:rxkotlin:0.60.0'
 }
 
 jar {
