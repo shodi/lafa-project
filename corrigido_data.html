@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset = 'UTF-8'>
+<title>Emissão de nota</title>
+	<head>
+		<script type='text/javascript'>
+			// var form = prompt('Digite o número de controle de formulário: ')
+			// var a = prompt('Digite o nome do usuário: ');
+			// var est = prompt('Digite o Estado do usuário: ');
+			// var uf = prompt('Digite o Município do usuário: ');
+			// var ende = prompt('Digite o endereço do usuário: ');
+			// var cpf = prompt('Digite o CPF ou o CNPJ do usuário: ');
+			// var cep = prompt('Digite o CEP do usuário: ');
+			// var insc = prompt('Digite a Inscrição Estadual do usuário')
+			// var pag = prompt('Digite a condicao de pagamento: ');
+			// var ccm = prompt('Digite a C.C.M do usuário: ');
+			// var cob = prompt('Digite o endereço de cobrança: ');
+			// var disc = prompt('Digite informações adicionais: ');
+			// var valor = prompt('Digite o valor total: ');
+			// var d = new Date();
+			// var dia = d.getDate();	
+			// var mes = d.getMonth();
+			// var ano = d.getFullYear(); 
+		</script>
+		<style>
+		p.tright{
+			text-align: right;
+		}
+		body{
+			background-color: #DCDCDC;
+		}
+		div.bordatitulo{
+			padding: 10px;
+			border: 3px solid;
+		}
+		p.borda3{
+			border-style: solid;
+			border-width: 3px;
+			border-top-width: 3px;
+			padding: 10px;
+		}
+		div.borda2{
+			border-style: solid;
+			border-width: 3px;
+			padding: 10px;
+			line-height: 300px;
+		}
+		p.borda22{
+			border: 3px solid;
+			padding: 10px;
+			
+			
+		}
+		div.tcent{
+			text-align: center;
+			
+		}
+		p.tcent2{
+			text-align: center;
+			text-align: vertical-center ;
+		}
+		up{
+			text-transform: capitalize;
+		}
+		table{
+			border-collapse: collapse;
+		}
+		table, td, th{
+			border: 3px solid black;
+		}
+		td{
+			length: 100%;
+		}
+		.scell{
+			overflow-wrap: break-word;
+			table-layout: fixed;
+		}
+		td.linebreak p {
+			width: 100px;
+		}
+		div.quant{
+			position: fixed;
+			border: 3px solid black;
+			left: 08px;
+			width: 50px;
+			length: 200px;
+		}
+		div.cod{
+			position: fixed;
+			border: 3px solid black;
+			left: 61px;
+			width: 50px;
+			length: 200px;
+		}
+		div.disc{
+			position: relative;
+			border: 3px solid black;
+			left: 114px;
+			width: 200px;
+			length: 200px;
+		}
+		div.letra{
+			color: red;
+		}
+		</style>
+	</head>
+	<body>
+		<table border = '3px' style='solid' width = '100%'>		
+			<tr>
+				<td>
+					<img src="logo.png" alt="Logo" width="375" height="63"><br>						
+					<b>Tel.:(11)5834-1261 &nbsp;/&nbsp; (11)7142-4610<br>
+					Rua Bocaina de Minas, 68 - Jd. Tupi<br> CEP 04939-200 - São Paulo - SP<br>
+					CNPJ Nº 09.509.536/0001-01&nbsp;&nbsp;Insc. Municipal Nº 3.753.291-0<br>
+					E-mail: best@bestcomunicacao.com.br&nbsp;<br>Site: www.bestcomunicacao.com.br </b>	
+				<td width = '30%'>
+					<h4><div class = 'tcent'><b>Fatura de cobrança de locação</b></div></h4><br>
+					<b>Natureza da operação:</b>
+					Locação de bens móveis<br>
+					<b>Data de emissão:<script>if(dia < 10){document.write("0"+dia)} else{document.write(dia)}</script>/<script>if(mes + 1 < 10){document.write("0"+(mes + 1))} else{document.write(mes + 1)}</script>/<script>document.write(ano)</script></b><br>
+					<b>Controle de form.:<div class = 'letra'>Nº<script>document.write(form)</script></b></div>
+				</td>
+			</tr>
+		</table>
+		<br>	
+		<table width='100%'>
+			<tr>
+				<th>
+					Usuário final ou destinatário
+				</th>
+			</tr>
+			<tr>
+				<td>
+					Nome: <b><up><script>document.write(a)</script><up></b><br>
+					UF / Município: <b><script> document.write(est)</script> / <script>document.write(uf)</script></b><br>
+					Endereço: <b><script>document.write(ende)</script></b><br>
+					CEP: <b><script>document.write(cep)</script></b><br> 
+					CNPJ / CPF: <b><script>document.write(cpf)</script></b><br> 
+					Form. Pagamento: <b><script>document.write(pag)</script></b><br>
+					End. de cobrança: <b><script>
+						if (cob == ''){
+							document.write(ende)
+						}else{
+							document.write(cob)
+						}
+					</script></b><br>
+					Inscr. C.C.M.: <b><script>document.write(ccm)</script></b><br>
+					Insc. Est.: <b><script>document.write(insc)</script></b>
+				</td>
+			</tr>
+		</table><br>		
+		<table style = 'table-layout: fixed' border = '3px' style = 'solid' width= '100%'>
+			<tr>
+				<th>
+					Quant.
+				</th>
+				<th>
+					Cód.
+				</th>
+				<th width = '60%'>
+					<b>Discriminação</b>
+				</th>	
+				<th>
+					VL. Unit.
+				</th>
+				<th>
+					VL. Total
+				</th>
+			</tr>
+			<tr>
+				<td height = '290px' rowspan = '7'>
+					<p>&nbsp;</p>
+				</td>
+				<td rowspan = '7'>
+					
+				</td>
+				<td width = '400px' class = 'linebreak' rowspan = '7'>					
+						<div class = 'scell'>
+							<script>
+								if (disc == ''){
+									document.write('');
+								} else {
+									document.write(disc);
+								} 
+							</script>
+						</div>
+				</td>
+				<td rowspan = '7'>
+				</td>
+				<th rowspan = '7'>
+					<script>document.write(valor)</script>
+				</th>
+			
+		</table><br>
+		<table >
+			<tr>
+				<th width = '60%'>Operação não tributada pelo ISSQN, conforme lei complementar nº 115 de 31/07/2003 DOU de 01/08/2003</th>
+				<th>Valor total</th>
+				<td width = '30%'><div class = 'tcent'><b><script>document.write(valor)</script></b></div></td>
+			</tr>
+			<tr>
+				<td colspan = '5'><b>1-</b> Não há fato gerador de ISS. <b>2-</b> Empresa desobrigada da emissão de N.F. conf. L.C 116/2003 item 3.01</td>
+			</tr>
+		</table><br>
+		<table>
+			<tr>
+				<td colspan = '2'>Recebemos de <b>BEST SISTEMAS DE TELECOMUNICAÇÕES LTDA - ME.</b>, os serviços prestados nesta fatura de cobrança de locação.</td>
+			</tr>
+			<tr width = '100%'>
+				<td>Data: <script>document.write(dia);</script>/<script>document.write(mes + 1);</script>/<script>document.write(ano);</script></td>
+				<td width = '70%'>Assinatura: </td>
+			</tr>
+		</table>
+	</body>
+</html>

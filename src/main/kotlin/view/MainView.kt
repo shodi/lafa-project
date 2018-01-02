@@ -4,59 +4,73 @@ import com.example.demo.app.Styles
 
 import tornadofx.*
 
+import com.example.demo.models.FormModel
+import com.example.demo.models.Form
+import com.example.demo.models.Order
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import javafx.scene.control.Label
 import javafx.scene.text.FontWeight
 import javafx.scene.layout.BorderPane
 import javafx.scene.paint.Color
+import javafx.collections.ObservableList
+import javafx.collections.FXCollections
 
-import org.apache.fop.apps.FOPException
-import org.apache.fop.apps.FOUserAgent
-import org.apache.fop.apps.Fop
-import org.apache.fop.apps.FopFactory
-import org.apache.fop.apps.MimeConstants
-
-import org.exolab.castor.xml.Marshaller
+import java.time.LocalDate
+import java.time.Period
 import java.io.FileWriter
 
 class MasterView: View("Projeto Lafa") {
-    val model: ViewModel = ViewModel()
-    val customer = model.bind { SimpleStringProperty("") }
-    val password = model.bind { SimpleStringProperty("") }
+    val model: FormModel = FormModel(Form())
+    val orderList: ObservableList<Order> = FXCollections.observableArrayList(
+            Order(1, "Shodi", 3.15, 9, "oie"),
+            Order(2, "Pauzudo", 3.78, 2, "desc")
+    )
+//    orderList.add(Order(1, "Shodi", 3.15, 9, "oie"))
+//    orderList.add(Order(2, "Pauzudo", 3.78, 2, "desc"))
     override val root = form {
         fieldset(title, labelPosition = Orientation.VERTICAL) {
             field("Cliente") {
-                textfield(customer).required()
+                textfield(model.customerName){
+                    promptText = "Nome cliente"
+                }.required()
             }
-            field("Password") {
-                passwordfield(password).required()
+            field("CPF / CNPJ") {
+                textfield(model.peopleRegistrationId){
+                    promptText = "CPF ou CNPJ do cliente"
+                }.required()
             }
-            button("Generate") {
+            field("Data") {
+                datepicker()
+            }
+            button("Adicionar produto") {
+                setOnAction {
+                    orderList.add(Order(1, "Click button", 5.89, 5, "botao"))
+                }
+            }
+        }
+        tableview(orderList) {
+            column("Qtd.", Order::qtd)
+            column("Cód.", Order::productId)
+            column("Discriminação", Order::desc)
+            column("Vl. Unitário", Order::productPrice)
+            column("Vl. Total", Order::totalPrice)
+        }
+        fieldset() {
+            button("Gerar PDF") {
                 style {
-                    fontWeight = FontWeight.EXTRA_BOLD 
-                    textFill = Color.RED
+                    fontWeight = FontWeight.EXTRA_BOLD
                 }
                 enableWhen(model.valid)
-                action {
-                    generatePDF(customer.value, password.value)
+                setOnAction {
+                    generatePDF(model.customerName.value, model.peopleRegistrationId.value, orderList)
                 }
             }
         }
     }
 
-    private fun generatePDF(customer: String, password: String) {
+    private fun generatePDF(customer: String, password: String, orderList: ObservableList<Order>) {
         println("GERANDO PDF usuário ${customer} senha ${password}")
-        var pdfGenerator: PDFGenerator = PDFGenerator(customer)
-        var writer: FileWriter = FileWriter(pdfGenerator.fileName)
-        Marshaller.marshal(pdfGenerator, writer)
+        PDFGenerator(customer, orderList)
     }
-}
-
-class TopView: View() {
-    override val root = Label("TOP VIEW")
-}
-
-class BottomView: View() {
-    override val root = Label("BOTTOM VIEW")
 }

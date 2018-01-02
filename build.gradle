@@ -25,13 +25,17 @@ repositories {
 dependencies {
 	// https://mvnrepository.com/artifact/org.codehaus.castor/castor-xml
 	compile group: 'org.codehaus.castor', name: 'castor-xml', version: '1.4.1'
+	compile group: 'no.entitas.gradle.jaxb', name: 'gradle-jaxb-plugin', version: '2.0'
+
+	compile group: 'xerces', name: 'xercesImpl', version: '2.11.0'
+
 
 	compile 'no.tornado:tornadofx:1.7.14'
     compile 'org.controlsfx:controlsfx:8.40.12'
 	compile group: 'org.apache.xmlgraphics', name: 'fop', version: '0.94'
     //RxKotlin and RxKotlinFX dependencies
+    compile 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     compile 'com.github.thomasnield:rxkotlinfx:0.2.0'
-    compile 'io.reactivex:rxkotlin:0.60.0'
 }
 
 jar {
