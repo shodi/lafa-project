@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlAccessType
 class Order(@XmlAttribute(name="product-id") val productId: Int,
             @XmlAttribute(name="product-name") val productName: String,
             @XmlAttribute(name="product-price") val productPrice: Double,
-            @XmlAttribute val qtd: Int,
+            @XmlAttribute var qtd: Int,
             @XmlAttribute val desc: String?) {
     val totalPrice: Double
         get() = productPrice * qtd

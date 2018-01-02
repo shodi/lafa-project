@@ -28,8 +28,6 @@ import java.io.FileWriter
 import java.nio.charset.Charset
 import org.apache.fop.apps.FOPException
 
-
-
 class PDFGenerator (customerName: String, val orderList: ObservableList<Order>) {
 
     companion object {

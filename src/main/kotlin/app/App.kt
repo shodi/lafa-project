@@ -1,6 +1,6 @@
 package com.example.demo.app
 
-import com.example.demo.view.MasterView
+import com.example.demo.view.ApplicationMasterView
 import tornadofx.App
 
-class LafaApp: App(MasterView::class, Styles::class)
+class LafaApp: App(ApplicationMasterView::class, Styles::class)
