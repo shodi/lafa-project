@@ -10,7 +10,6 @@ import com.example.demo.models.ProductForm
 import com.example.demo.models.Product
 import com.example.demo.models.Form
 import com.example.demo.models.Order
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Orientation
 import javafx.scene.control.Label
@@ -111,7 +110,6 @@ class MasterView: View() {
                     }
                 }
                 tableview(orderList) {
-                    this.refresh()
                     column("Qtd.", Order::qtd).makeEditable()
                             .setOnEditCommit {
                                 event ->
