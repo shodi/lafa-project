@@ -66,6 +66,7 @@ class MasterView: View() {
                 }
                 fieldset("Adicionar Produto", labelPosition = Orientation.VERTICAL) {
                     combobox<Product>(productModel.selectedItem, itens) {
+                        promptText = "Selecione"
                         cellFormat {
                             text = it.productName
                         }
@@ -105,7 +106,10 @@ class MasterView: View() {
                     button("Adicionar produto") {
                         enableWhen(productModel.valid)
                         setOnAction {
-                            orderList.add(Order(1, "shodi", 5.5, 2, "oi"))
+                            val selectedItem: Product = productModel.selectedItem.value
+                            orderList.add(
+                                    Order(selectedItem.productId, selectedItem.productName, selectedItem.price, productModel.qtd.value.toInt(), "oi")
+                            )
                         }
                     }
                 }
@@ -118,8 +122,16 @@ class MasterView: View() {
                                 this.refresh()
                             }
                     column("Cód.", Order::productId)
+                    column("Produto", Order::productName)
                     column("Discriminação", Order::desc)
                     column("Vl. Unitário", Order::productPrice)
+                    column("Disconto (%)", Order::discount).makeEditable()
+                            .setOnEditCommit {
+                                event ->
+                                val changedOrder: Order = event.getRowValue()
+                                changedOrder.discount = event.getNewValue()
+                                this.refresh()
+                            }
                     column("Vl. Total", Order::totalPrice)
                 }
                 fieldset() {

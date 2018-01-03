@@ -16,8 +16,12 @@ class Order(@XmlAttribute(name="product-id") val productId: Int,
             @XmlAttribute(name="product-price") val productPrice: Double,
             @XmlAttribute var qtd: Int,
             @XmlAttribute val desc: String?) {
+    var discount: Double = .0
     val totalPrice: Double
-        get() = productPrice * qtd
+        get() {
+            val totalPrice = productPrice * qtd
+            return totalPrice - (totalPrice * discount / 100)
+        }
 }
 
 class OrderForm {
