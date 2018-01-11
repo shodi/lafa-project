@@ -22,6 +22,12 @@ import javafx.collections.FXCollections
 import javafx.beans.value.ChangeListener
 import javafx.scene.control.Alert.AlertType
 import javafx.scene.control.Alert
+import javafx.scene.control.TextFormatter
+
+import javafx.scene.control.cell.TextFieldTableCell
+
+import javafx.scene.image.ImageView
+import javafx.scene.image.Image
 
 import javafx.collections.ListChangeListener
 import rx.javafx.sources.ListChange
@@ -29,7 +35,13 @@ import rx.javafx.sources.ListChange
 import java.time.LocalDate
 import java.time.Period
 import java.io.FileWriter
+import java.text.DecimalFormat
+import java.text.ParsePosition
+
 import rx.javafx.sources.Change
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType.Object
+
+
 
 class MasterView: View() {
 
@@ -42,11 +54,17 @@ class MasterView: View() {
             Product(3, "Vassoura", 15.65)
     )
 
+    private val decimalFormatter = DecimalFormat("#.0")
+
+//    companion object {
+//        val image = Image("resources/icons/search-icon.png")
+//    }
+
     override val root = GridPane()
 
     init {
         with(root) {
-            setPrefSize(800.0, 500.0)
+            setPrefSize(950.0, 500.0)
             form {
                 fieldset("Informações Cliente", labelPosition = Orientation.VERTICAL) {
                     gridpane {
@@ -62,16 +80,84 @@ class MasterView: View() {
                             field("CPF / CNPJ", Orientation.HORIZONTAL) {
                                 hbox {
                                     textfield(model.peopleRegistrationId){
+                                        prefColumnCount = 17
                                         promptText = "CPF ou CNPJ do cliente"
                                     }.required()
-                                    button("")
+                                    button("") {
+
+                                    }
                                 }
                                 gridpaneConstraints {
                                     marginRight = 15.0
                                 }
                             }
-                            field("Data") {
-                                datepicker()
+                            field("UF / Município") {
+                                hbox {
+                                    textfield {
+                                        prefColumnCount = 2
+                                        promptText = "UF"
+                                    }
+                                    textfield {
+                                        promptText = "Município"
+                                    }
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                            field("Endereço") {
+                                textfield {
+                                    promptText = "Endereço"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                            field("CEP") {
+                                textfield {
+                                    prefColumnCount = 9
+                                    promptText = "CEP"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+//                            field("Data") {
+//                                datepicker()
+//                            }
+                        }
+                        row {
+                            field("Form. Pagamento") {
+                                textfield {
+                                    promptText = "Forma de Pagamento"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                            field("End. de cobrança") {
+                                textfield {
+                                    promptText = "Endereço de cobrança"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                            field("Inscr. C.C.M.") {
+                                textfield {
+                                    promptText = "Inscrição C.C.M."
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                            field("Insc. Est.") {
+                                textfield {
+                                    promptText = "Inscrição Estadual"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
                             }
                         }
                     }
@@ -104,10 +190,19 @@ class MasterView: View() {
                                     vbox {
                                         label("Qtd.")
                                         textfield(productModel.qtd) {
-                                            setOnKeyPressed {
-                                                event ->
-                                                println("CHAMOU SET ON ACTION  $event")
-                                            }
+                                            setTextFormatter(
+                                                    TextFormatter<Any> formatterResult@{
+                                                        c ->
+                                                        if (c.getControlNewText().isEmpty())
+                                                            return@formatterResult c
+                                                        val parsePosition = ParsePosition(0)
+                                                        val obj = decimalFormatter.parse(c.getControlNewText(), parsePosition)
+                                                        return@formatterResult if (obj == null || parsePosition.getIndex() < c.getControlNewText().length)
+                                                            null
+                                                        else
+                                                            c
+                                                    }
+                                            )
                                             textProperty().addListener { _, _, new ->
                                                 var value: Double = .0
                                                 if (new != null && (new as String).isEmpty().not()) {
@@ -148,7 +243,7 @@ class MasterView: View() {
                                         val alert = Alert(AlertType.INFORMATION)
                                         alert.setTitle("Aviso")
                                         alert.setHeaderText(null)
-                                        if(qtd >= 0) {
+                                        if(qtd <= 0) {
                                             alert.setContentText(
                                                     """
                                                         >Não é possivel solicitar a locação
@@ -164,8 +259,8 @@ class MasterView: View() {
                                                 alert.setContentText(
                                                         """
                                                             >Você já possui o produto '${it.productName}' na
-                                                            >lista, caso queira ajustar a quantidade dê um duplo
-                                                            >click em cima da célula da tabela.
+                                                            >lista, caso queira ajustar a quantidade dê
+                                                            >um duplo click em cima da célula da tabela.
                                                         """.trimMargin(">")
                                                 )
                                                 alert.showAndWait()
@@ -183,13 +278,20 @@ class MasterView: View() {
                 separator()
                 tableview(orderList) {
                     useMaxWidth = true
-                    column("Qtd.", Order::qtd).makeEditable()
+                    column("Qtd.", Order::qtd) {
+                        /**
+                         * TODO: IMPLEMENTAR MEU PROPRIO CONVERSOR DE STRING PRA INT
+                         */
+//                        this.setCellFactory(TextFieldTableCell.forTableColumn())
+                    }.makeEditable()
                             .setOnEditCommit {
                                 event ->
+                                val newValue = event.getNewValue()
                                 val changedOrder: Order = event.getRowValue()
-                                changedOrder.qtd = event.getNewValue()
+                                changedOrder.qtd = newValue
                                 this.refresh()
                             }
+
                     column("Cód.", Order::productId)
                     column("Produto", Order::productName)
                     column("Discriminação", Order::desc)

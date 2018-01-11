@@ -11,6 +11,7 @@ class ProductForm {
     val priceProperty = SimpleDoubleProperty()
     val totalPriceProperty = SimpleDoubleProperty(priceProperty.value * qtdProperty.value)
     val selectedItemProperty = SimpleObjectProperty<Product>()
+
 }
 
 class ProductModel(private var product: ProductForm): ViewModel() {

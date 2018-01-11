@@ -31,8 +31,8 @@ import org.apache.fop.apps.FOPException
 class PDFGenerator (customerName: String, val orderList: ObservableList<Order>) {
 
     companion object {
-        @JvmStatic var RESOURCES_DIR: String = "src//main//resources//"
-        @JvmStatic var OUTPUT_DIR: String = "src//main//resources//output//"
+        @JvmStatic var RESOURCES_DIR: String = "src//main//resources//xsl_template//"
+        @JvmStatic var OUTPUT_DIR: String = "src//main//resources//pdf_output//"
     }
 
     var fileName: String
