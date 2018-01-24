@@ -30,6 +30,7 @@ class OrderForm {
     val productPriceProperty = SimpleStringProperty()
     val qtdProperty = SimpleStringProperty()
     val descProperty = SimpleStringProperty()
+    val paymentMethodProperty = SimpleStringProperty()
 }
 
 class OrderModel(private var order: OrderForm): ViewModel() {
@@ -38,6 +39,7 @@ class OrderModel(private var order: OrderForm): ViewModel() {
     val productPrice = bind { order.productPriceProperty }
     val qtd = bind { order.qtdProperty }
     val desc = bind { order.descProperty }
+    val paymentMethod = bind { order.paymentMethodProperty }
 }
 
 

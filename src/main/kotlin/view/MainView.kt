@@ -1,15 +1,18 @@
 package com.example.demo.view
 
-import com.example.demo.app.Styles
-
 import tornadofx.*
 
 import com.example.demo.models.FormModel
 import com.example.demo.models.ProductModel
 import com.example.demo.models.ProductForm
+import com.example.demo.models.CustomerModel
+import com.example.demo.models.CustomerForm
 import com.example.demo.models.Product
 import com.example.demo.models.Form
 import com.example.demo.models.Order
+import com.example.demo.models.OrderModel
+import com.example.demo.models.OrderForm
+
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.geometry.Orientation
 import javafx.scene.control.Label
@@ -38,15 +41,13 @@ import java.io.FileWriter
 import java.text.DecimalFormat
 import java.text.ParsePosition
 
-import rx.javafx.sources.Change
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType.Object
-
-
 
 class MasterView: View() {
 
     private val model: FormModel = FormModel(Form())
     private val productModel: ProductModel = ProductModel(ProductForm())
+    private val customerModel: CustomerModel = CustomerModel(CustomerForm())
+    private val orderModel: OrderModel = OrderModel(OrderForm())
     private val orderList: ObservableList<Order> = FXCollections.observableArrayList()
     private val itens: ObservableList<Product> = FXCollections.observableArrayList(
             Product(1, "Radio", 3.8),
@@ -70,7 +71,7 @@ class MasterView: View() {
                     gridpane {
                         row {
                             field("Cliente") {
-                                textfield(model.customerName){
+                                textfield(customerModel.customerName){
                                     promptText = "Nome cliente"
                                 }.required()
                                 gridpaneConstraints {
@@ -79,7 +80,7 @@ class MasterView: View() {
                             }
                             field("CPF / CNPJ", Orientation.HORIZONTAL) {
                                 hbox {
-                                    textfield(model.peopleRegistrationId){
+                                    textfield(customerModel.peopleRegistrationId){
                                         prefColumnCount = 17
                                         promptText = "CPF ou CNPJ do cliente"
                                     }.required()
@@ -91,32 +92,17 @@ class MasterView: View() {
                                     marginRight = 15.0
                                 }
                             }
-                            field("UF / Município") {
-                                hbox {
-                                    textfield {
-                                        prefColumnCount = 2
-                                        promptText = "UF"
-                                    }
-                                    textfield {
-                                        promptText = "Município"
-                                    }
+                            field("Inscr. C.C.M.") {
+                                textfield(customerModel.ccm) {
+                                    promptText = "Inscrição C.C.M."
                                 }
                                 gridpaneConstraints {
                                     marginRight = 15.0
                                 }
                             }
-                            field("Endereço") {
-                                textfield {
-                                    promptText = "Endereço"
-                                }
-                                gridpaneConstraints {
-                                    marginRight = 15.0
-                                }
-                            }
-                            field("CEP") {
-                                textfield {
-                                    prefColumnCount = 9
-                                    promptText = "CEP"
+                            field("Insc. Est.") {
+                                textfield(customerModel.inscEst) {
+                                    promptText = "Inscrição Estadual"
                                 }
                                 gridpaneConstraints {
                                     marginRight = 15.0
@@ -127,8 +113,45 @@ class MasterView: View() {
 //                            }
                         }
                         row {
+                            field("UF / Município") {
+                                hbox {
+                                    textfield(customerModel.uf) {
+                                        prefColumnCount = 2
+                                        promptText = "UF"
+                                    }
+                                    textfield(customerModel.city) {
+                                        promptText = "Município"
+                                    }
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                            field("Endereço") {
+                                textfield(customerModel.customerAddress) {
+                                    prefColumnCount = 25
+                                    promptText = "Endereço"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+//                                textProperty().addListener { _, _, new ->
+//
+//                                }
+                            }
+                            field("CEP") {
+                                textfield(customerModel.cep) {
+                                    prefColumnCount = 9
+                                    promptText = "CEP"
+                                }
+                                gridpaneConstraints {
+                                    marginRight = 15.0
+                                }
+                            }
+                        }
+                        row {
                             field("Form. Pagamento") {
-                                textfield {
+                                textfield(orderModel.paymentMethod) {
                                     promptText = "Forma de Pagamento"
                                 }
                                 gridpaneConstraints {
@@ -136,24 +159,9 @@ class MasterView: View() {
                                 }
                             }
                             field("End. de cobrança") {
-                                textfield {
+                                textfield(customerModel.billingAddress) {
+                                    prefColumnCount = 25
                                     promptText = "Endereço de cobrança"
-                                }
-                                gridpaneConstraints {
-                                    marginRight = 15.0
-                                }
-                            }
-                            field("Inscr. C.C.M.") {
-                                textfield {
-                                    promptText = "Inscrição C.C.M."
-                                }
-                                gridpaneConstraints {
-                                    marginRight = 15.0
-                                }
-                            }
-                            field("Insc. Est.") {
-                                textfield {
-                                    promptText = "Inscrição Estadual"
                                 }
                                 gridpaneConstraints {
                                     marginRight = 15.0
