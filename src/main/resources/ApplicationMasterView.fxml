@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import com.gluonhq.charm.glisten.control.DropdownButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="400.0" prefWidth="640.0" 
+	xmlns="http://javafx.com/javafx/8" 
+	xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+			<children>
+				<TabPane prefHeight="400.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE">
+					<tabs>
+						<Tab text="Untitled Tab 1">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+									<children>
+										<TableView layoutX="10.0" layoutY="126.0" prefHeight="200.0" prefWidth="627.0">
+											<columns>
+												<TableColumn minWidth="50.0" prefWidth="50.0" resizable="false" text="Qtd." />
+												<TableColumn minWidth="50.0" prefWidth="50.0" resizable="false" text="Cod." />
+												<TableColumn minWidth="100.0" prefWidth="100.0" resizable="false" text="Produto" />
+												<TableColumn minWidth="160.0" prefWidth="160.0" resizable="false" text="Discriminaçao" />
+												<TableColumn prefWidth="90.0" resizable="false" text="Vl. Unitario" />
+												<TableColumn minWidth="100.0" prefWidth="100.0" resizable="false" text="Desconto (%)" />
+												<TableColumn prefWidth="75.0" resizable="false" text="Vl. Total" />
+											</columns>
+										</TableView>
+										<VBox layoutX="12.0" layoutY="14.0" prefHeight="119.0" prefWidth="623.0">
+											<children>
+												<HBox prefHeight="26.0" prefWidth="625.0">
+													<children>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="273.0" promptText="Cliente">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" promptText="CPF/CNPJ">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" promptText="Insc. Est." />
+													</children>
+													<VBox.margin>
+														<Insets bottom="15.0" />
+													</VBox.margin>
+												</HBox>
+												<HBox prefHeight="100.0" prefWidth="200.0">
+													<children>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="28.0" promptText="UF">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="110.0" promptText="Município">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="260.0" promptText="Endereço">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="50.0" promptText="N°">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="100.0" promptText="CEP" />
+													</children>
+												</HBox>
+												<HBox prefHeight="100.0" prefWidth="200.0">
+													<children>
+														<JFXTextField labelFloat="true" prefHeight="26.0" prefWidth="257.0" promptText="End. de Cobrança">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<JFXTextField labelFloat="true" promptText="CEP Cobrança">
+															<HBox.margin>
+																<Insets right="15.0" />
+															</HBox.margin>
+														</JFXTextField>
+														<DropdownButton >
+															<items>
+																<MenuItem text="À Vista" />
+																<SeparatorMenuItem mnemonicParsing="false" text="Faturado" />
+																<MenuItem text="30 dias" />
+																<MenuItem text="60 dias" />
+																<MenuItem mnemonicParsing="false" text="90 dias" />
+															</items>
+														</DropdownButton>
+													</children>
+												</HBox>
+											</children>
+										</VBox>
+									</children>
+								</AnchorPane>
+							</content>
+						</Tab>
+						<Tab text="Untitled Tab 2">
+							<content>
+								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+							</content>
+						</Tab>
+					</tabs>
+					<opaqueInsets>
+						<Insets />
+					</opaqueInsets>
+				</TabPane>
+			</children>
+		</AnchorPane>
+	</children>
+</VBox>

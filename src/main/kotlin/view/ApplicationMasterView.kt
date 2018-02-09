@@ -1,25 +1,8 @@
-package com.example.demo.view
+package view
 
-import tornadofx.*
-import javafx.scene.layout.GridPane
-import javafx.scene.control.TabPane.TabClosingPolicy.UNAVAILABLE
+import tornadofx.View
+import javafx.scene.layout.VBox
 
-class ApplicationMasterView : View() {
-    override val root = GridPane()
-
-    val mainView: MasterView by inject()
-
-    init {
-        with(root) {
-            tabpane {
-                tabClosingPolicy = UNAVAILABLE
-                tab("shodi") {
-                    this += mainView
-                }
-                tab("teste") {
-
-                }
-            }
-        }
-    }
+class ApplicationMasterView: View() {
+    override val root: VBox by fxml("/ApplicationMasterView.fxml")
 }

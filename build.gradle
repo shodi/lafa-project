@@ -1,6 +1,7 @@
 buildscript {
 	ext.kotlin_version = '1.2.10'
 	ext.main_class_name = 'com.example.demo.app.LafaApp'
+	ext.GLUON_VERSION = "4.4.1"
 	repositories {
 		mavenCentral()
 	}
@@ -20,15 +21,24 @@ compileKotlin {
 
 repositories {
 	mavenCentral()
+	maven {
+		url 'http://nexus.gluonhq.com/nexus/content/repositories/releases/'
+	}
 }
 
 dependencies {
+	compile "com.gluonhq:charm:$GLUON_VERSION"
+	compile "com.gluonhq:charm-glisten:$GLUON_VERSION"
+	compile "com.gluonhq:charm-glisten-desktop:3.0.0"
+	compile group: 'com.jfoenix', name: 'jfoenix', version: '8.0.1'
+
 	// https://mvnrepository.com/artifact/org.codehaus.castor/castor-xml
 	compile group: 'org.codehaus.castor', name: 'castor-xml', version: '1.4.1'
 	compile group: 'no.entitas.gradle.jaxb', name: 'gradle-jaxb-plugin', version: '2.0'
 
-	compile group: 'xerces', name: 'xercesImpl', version: '2.11.0'
 
+
+	compile group: 'xerces', name: 'xercesImpl', version: '2.11.0'
 
 	compile 'no.tornado:tornadofx:1.7.14'
     compile 'org.controlsfx:controlsfx:8.40.12'
